@@ -14,6 +14,7 @@ public class mogusControl : MonoBehaviour
     public GameObject shotLauncher;
     public GameObject normalProjectile;
     public GameObject burstProjectile;
+    public GameObject blastProjectile;
 
     public Rigidbody rb;
 
@@ -62,6 +63,20 @@ public class mogusControl : MonoBehaviour
             timeHeld = 0;
         }
 
+        //Mega Scatter Shot
+        if (Input.GetKey(KeyCode.P))
+        {
+            timeHeld += Time.deltaTime;
+        }
+        if (Input.GetKeyUp(KeyCode.P))
+        {
+            GameObject currentProjectile = Instantiate(blastProjectile, shotLauncher.transform.position + new Vector3 (0, 1, 0), shotLauncher.transform.rotation);
+            currentProjectile.GetComponent<mogusLob>().height = 1f * (1 + timeHeld);
+            currentProjectile.GetComponent<mogusLob>().speed = 1f * (1 + timeHeld);
+
+            timeHeld = 0;
+        }
+
         //Snipe Shot
         if (Input.GetKey(KeyCode.L))
         {
@@ -74,6 +89,14 @@ public class mogusControl : MonoBehaviour
             currentProjectile.GetComponent<mogusLob>().speed = 7.5f * (1 + timeHeld);
 
             timeHeld = 0;
+        }
+
+        //Spam
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            GameObject currentProjectile = Instantiate(normalProjectile, shotLauncher.transform.position, shotLauncher.transform.rotation);
+            currentProjectile.GetComponent<mogusLob>().height = 5;
+            currentProjectile.GetComponent<mogusLob>().speed = 10;
         }
     }
 

@@ -6,9 +6,12 @@ using UnityEngine;
 public class guyMove : MonoBehaviour
 {
     public float speed;
+
+    public GameObject point;
+    public GameObject pointSpot;
     void Start()
     {
-        
+        pointSpot = GameObject.Find("PointSpot");
     }
 
     // Update is called once per frame
@@ -26,6 +29,7 @@ public class guyMove : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Mogus"))
         {
+            Instantiate(point, pointSpot.transform.position, pointSpot.transform.rotation);
             Destroy(gameObject);
             Destroy(collision.gameObject);
         }
